@@ -44,6 +44,7 @@
 #define MAP_ANONYMOUS MAP_ANON
 #endif
 
+using testing::AnyOf;
 using testing::Contains;
 
 #ifdef _WIN32
@@ -456,7 +457,7 @@ TEST(Symbolize, ForEachSection) {
   EXPECT_THAT(sections, Contains(".rodata"));
   EXPECT_THAT(sections, Contains(".bss"));
   ++in_data_section;
-  EXPECT_THAT(sections, Contains(".data"));
+  EXPECT_THAT(sections, AnyOf(Contains(".data"), Contains(".sdata")));
 
   close(fd);
 }
